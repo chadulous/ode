@@ -1,0 +1,30 @@
+:(ode/haitch@69.420.24) as h; `This is an import, the import URI should be [host]/[scope]:[package]`
+:(github/mavdotjs:odeFS) as filesystem; `This is an example of an import from another host, the provider exten will get the latest non prerelease for github.com/mavdotjs/odeFS, and finds the main.tar.gz`
+`ode packages can also be written in js using @odelang/create`
+
+set#constant keyAsValue = 'anotherkey'
+
+set#constant anObject = {
+    'key': 'value',
+    [keyAsValue]: 'anothervalue'
+}
+
+set#constant array = [1, 2, 3];
+
+fun aFunction() { `function statement`
+    ode:math:add(2, 3);
+    set#imut constant = 'unchangable';
+    ode:console:out(constant);
+    constant = 'new var'; `throws an Error`
+    set#mut variable = 'changeable';
+    ode:console:out(variable);
+    variable = 'new var';
+    ode:console:out(variable);
+
+    h:get('/api/whatever', |argumentOne, argumentTwo|{
+        `do whatever`
+    }); `anonymous function`
+    h:serve('0.0.0.0', 8080)
+};
+
+export aFunction as main; `exported function that is named 'main' will be called by the interpereter when ran as a command.`
